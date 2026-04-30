@@ -1,65 +1,174 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import Link from 'next/link';
+import { Button, Card } from '@heroui/react';
+import { products } from '@/lib/products';
+import { Star } from 'lucide-react';
+
+export default function HomePage() {
+  const popularProducts = products.slice(0, 3);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="summer-gradient text-white py-20 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="inline-block bg-white/20 text-white text-sm font-medium px-6 py-2 rounded-full mb-6 backdrop-blur-sm">
+            🌞 Summer Sale 2026
+          </div>
+
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tighter leading-tight">
+            Get Ready for
+            <br />
+            Summer Vibes
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-10 opacity-90">
+            Premium summer essentials at unbeatable prices. Sunglasses, outfits,
+            skincare &amp; more.
           </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/products">
+              <Button
+                size="lg"
+                className="bg-white text-orange-600 hover:bg-white/90 font-semibold px-12 py-7 text-lg"
+              >
+                Shop Now
+              </Button>
+            </Link>
+
+            <Link href="#tips">
+              <Button
+                size="lg"
+                variant="bordered"
+                className="text-white border-white hover:bg-white/10 px-10 py-7 text-lg"
+              >
+                Summer Tips
+              </Button>
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      {/* Popular Products Section */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="flex justify-between items-end mb-10">
+          <h2 className="text-4xl font-bold text-gray-900">
+            Popular This Summer 🔥
+          </h2>
+          <Link
+            href="/products"
+            className="text-orange-600 hover:underline font-medium text-lg"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            View All →
+          </Link>
         </div>
-      </main>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {popularProducts.map((product) => (
+            <Card
+              key={product.id}
+              className="group overflow-hidden hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="relative h-72 overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                {product.stock < 10 && (
+                  <div className="absolute top-4 right-4 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-medium">
+                    Only {product.stock} left
+                  </div>
+                )}
+              </div>
+
+              <Card.Content className="p-6">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-semibold text-xl line-clamp-2 pr-2">
+                    {product.name}
+                  </h3>
+                  <p className="text-2xl font-bold text-orange-600">
+                    ₹{product.price}
+                  </p>
+                </div>
+
+                <p className="text-gray-500 text-sm mb-4 line-clamp-2">
+                  {product.description}
+                </p>
+
+                <div className="flex items-center gap-2 mb-6">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={18}
+                      className={
+                        i < Math.floor(product.rating)
+                          ? 'fill-yellow-400 text-yellow-400'
+                          : 'text-gray-300'
+                      }
+                    />
+                  ))}
+                  <span className="text-sm text-gray-500 ml-2">
+                    ({product.rating})
+                  </span>
+                </div>
+
+                <Link href={`/products/${product.id}`}>
+                  <Button
+                    color="primary"
+                    className="w-full summer-gradient font-medium py-6"
+                  >
+                    View Details
+                  </Button>
+                </Link>
+              </Card.Content>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Summer Care Tips */}
+      <section id="tips" className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Summer Care Tips
+          </h2>
+          <p className="text-gray-500 text-center mb-12 max-w-md mx-auto">
+            Stay safe and enjoy the sunshine with these essential tips
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                emoji: '💧',
+                title: 'Stay Hydrated',
+                desc: 'Drink at least 3-4 liters of water daily',
+              },
+              {
+                emoji: '🧴',
+                title: 'Sun Protection',
+                desc: 'Apply SPF 50+ sunscreen every 2 hours',
+              },
+              {
+                emoji: '👕',
+                title: 'Light Clothing',
+                desc: 'Wear breathable, light-colored fabrics',
+              },
+            ].map((tip, index) => (
+              <div
+                key={index}
+                className="bg-orange-50 p-10 rounded-3xl hover:shadow-lg transition-shadow"
+              >
+                <div className="text-6xl mb-6">{tip.emoji}</div>
+                <h3 className="text-2xl font-semibold mb-3">{tip.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{tip.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
