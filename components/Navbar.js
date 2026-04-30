@@ -2,11 +2,25 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Button } from '@heroui/react';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import {
+  Button,
+  Avatar,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from '@heroui/react';
+import { Menu, X, User } from 'lucide-react';
+import { useSession, signOut } from '@/lib/auth-client';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session, isPending: isLoading } = useSession();
+  const user = session?.user;
+
+  const handleLogout = async () => {
+    await signOut({ callbackURL: '/' });
+  };
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -19,8 +33,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">sc</span>
+            <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">
+              ☀️
             </div>
             <span className="font-bold text-2xl tracking-tight text-orange-600">
               SunCart
@@ -41,13 +55,57 @@ export default function Navbar() {
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center gap-3">
-            {/* Cart */}
-            <Link href="/cart">
-              <Button isIconOnly variant="light">
-                <ShoppingBag size={20} />
-              </Button>
-            </Link>
+          <div className="flex items-center gap-4">
+            {user && (
+              <Link href="/profile" className="hidden md:block">
+                <Button variant="light" startContent={<User size={18} />}>
+                  Profile
+                </Button>
+              </Link>
+            )}
+
+            {/* Auth Section */}
+            {user ? (
+              <Dropdown placement="bottom-end">
+                <DropdownTrigger>
+                  <Avatar
+                    src={user.image}
+                    size="sm"
+                    className="cursor-pointer ring-2 ring-orange-200"
+                    fallback="👤"
+                  />
+                </DropdownTrigger>
+                <DropdownMenu aria-label="User Menu">
+                  <DropdownItem key="profile" href="/profile">
+                    My Profile
+                  </DropdownItem>
+                  <DropdownItem
+                    key="logout"
+                    color="danger"
+                    onPress={handleLogout}
+                  >
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link href="/login">
+                  <Button variant="bordered" size="sm">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button
+                    color="primary"
+                    size="sm"
+                    className="summer-gradient text-white"
+                  >
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            )}
 
             {/* Mobile Menu Button */}
             <Button
@@ -56,7 +114,7 @@ export default function Navbar() {
               className="md:hidden"
               onPress={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
           </div>
         </div>
@@ -64,26 +122,27 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden border-t bg-white">
-          <div className="px-4 py-6 flex flex-col gap-4">
+        <div className="md:hidden border-t bg-white px-4 py-5">
+          <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-lg font-medium text-gray-700"
+                className="text-lg font-medium text-gray-700 py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-
-            <Link
-              href="/cart"
-              className="text-lg font-medium text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Cart
-            </Link>
+            {user && (
+              <Link
+                href="/profile"
+                className="text-lg font-medium text-gray-700 py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                My Profile
+              </Link>
+            )}
           </div>
         </div>
       )}
