@@ -14,7 +14,7 @@ export default function HomePage() {
       <section className="summer-gradient text-white py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="inline-block bg-white/20 text-white text-sm font-medium px-6 py-2 rounded-full mb-6 backdrop-blur-sm">
-            🌞 Summer Sale 2026
+             Summer Sale 2026
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tighter leading-tight">
@@ -55,7 +55,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-6 py-16">
         <div className="flex justify-between items-end mb-10">
           <h2 className="text-4xl font-bold text-gray-900">
-            Popular This Summer 🔥
+            Popular This Summer 
           </h2>
           <Link
             href="/products"
@@ -142,17 +142,17 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                emoji: '💧',
+                emoji: '',
                 title: 'Stay Hydrated',
                 desc: 'Drink at least 3-4 liters of water daily',
               },
               {
-                emoji: '🧴',
+                emoji: '',
                 title: 'Sun Protection',
                 desc: 'Apply SPF 50+ sunscreen every 2 hours',
               },
               {
-                emoji: '👕',
+                emoji: '',
                 title: 'Light Clothing',
                 desc: 'Wear breathable, light-colored fabrics',
               },

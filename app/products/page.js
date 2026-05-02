@@ -63,7 +63,7 @@ export default function ProductsPage() {
       {/* Products Grid */}
       {filteredProducts.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-2xl text-gray-500">No products found 😕</p>
+          <p className="text-2xl text-gray-500">No products found</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
