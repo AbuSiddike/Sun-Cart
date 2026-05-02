@@ -44,12 +44,17 @@ export default function ProfilePage() {
       <Card className="shadow-2xl">
         <div className="p-10">
           <div className="flex flex-col items-center text-center mb-10">
-            <Avatar
+            <img
               src={user.image}
+              alt={user.name}
+              className="mb-6 ring-4 ring-orange-100 rounded-full"
+            />
+            {/* <Avatar
+              src={`${user.image}`}
               size="xl"
               className="mb-6 ring-4 ring-orange-100"
               fallback={<User size={60} />}
-            />
+            /> */}
 
             <h1 className="text-4xl font-bold mb-2">{user.name}</h1>
             <p className="text-gray-500 text-xl">{user.email}</p>

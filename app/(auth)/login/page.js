@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Input, Card } from '@heroui/react';
 import toast from 'react-hot-toast';
 import { signIn } from '@/lib/auth-client';
-import { Globe } from 'lucide-react';
+import { FaGoogle } from "react-icons/fa";
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -67,10 +67,10 @@ export default function LoginPage() {
             onPress={handleGoogleLogin}
             isLoading={isGoogleLoading}
             className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium"
-            startContent={<Globe size={20} />}
+            // startContent={<FaGoogle size={20} />}
             size="lg"
           >
-            Continue with Google
+            <FaGoogle size={20} />Continue with Google
           </Button>
 
           {/* Divider */}

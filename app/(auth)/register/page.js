@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button, Input, Card } from '@heroui/react';
 import toast from 'react-hot-toast';
-import { signUp } from '@/lib/auth-client';
-import { Globe } from 'lucide-react';
+import { signIn } from '@/lib/auth-client';
+import { FaGoogle } from 'react-icons/fa';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -46,12 +46,12 @@ export default function RegisterPage() {
   const handleGoogleRegister = async () => {
     setIsGoogleLoading(true);
     try {
-      await signUp.social({
+      await signIn.social({
         provider: 'google',
         callbackURL: '/',
       });
     } catch (error) {
-      toast.error('Google sign up failed. Please try again.');
+      toast.error('Google sign in failed. Please try again.');
       setIsGoogleLoading(false);
     }
   };
@@ -73,9 +73,10 @@ export default function RegisterPage() {
             onPress={handleGoogleRegister}
             isLoading={isGoogleLoading}
             className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium"
-            startContent={<Globe size={20} />}
+            // startContent={<Globe size={20} />}
             size="lg"
           >
+            <FaGoogle size={20} />
             Continue with Google
           </Button>
 
@@ -110,7 +111,7 @@ export default function RegisterPage() {
 
             <Input
               type="url"
-              label="Photo URL (Optional)"
+              label="Photo URL"
               placeholder="https://example.com/yourphoto.jpg"
               value={photoUrl}
               onChange={(e) => setPhotoUrl(e.target.value)}

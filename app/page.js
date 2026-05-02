@@ -11,22 +11,22 @@ export default function HomePage() {
   const popularProducts = products.slice(0, 3);
   const brands = [
     {
-      name: 'SunShade',
+      name: 'Sun Shade',
       image: '/sun_shade.jpg',
       desc: 'Premium Sunglasses',
     },
     {
-      name: 'BeachVibe',
-      image: '/beach_vibe.jpg',
+      name: 'Beach Vibe',
+      image: '/beachVibe.jpg',
       desc: 'Summer Outfits',
     },
     {
-      name: 'GlowSkin',
+      name: 'Glow Skin',
       image: '/glow_skin.jpg',
       desc: 'Skincare Essentials',
     },
     {
-      name: 'WaveWalk',
+      name: 'Wave Walk',
       image: '/wave_walk.jpg',
       desc: 'Beach Footwear',
     },
@@ -222,8 +222,9 @@ export default function HomePage() {
                     <Image
                       src={brand.image}
                       alt={brand.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition duration-500"
+                      // fill
+                      className="object-contain group-hover:scale-110 transition duration-500"
+                      height={500} width={500}
                     />
                   </div>
                 </div>
