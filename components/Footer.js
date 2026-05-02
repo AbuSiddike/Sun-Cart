@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter } from 'lucide-react';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -14,7 +14,8 @@ export default function Footer() {
               <span className="font-bold text-2xl">SunCart</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Your go-to store for all summer essentials. Shop smart. Stay cool.
+              Discover everything you need for summer in one place. Shop with
+              confidence and enjoy the season in style.
             </p>
           </div>
 
@@ -57,16 +58,24 @@ export default function Footer() {
 
           <div>
             <h3 className="font-semibold mb-4">Follow Us</h3>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-orange-400">
-                {/* <Facebook size={20} /> */}
+            <div className="flex items-center gap-3">
+              <a
+                href="#"
+                className="p-2 rounded-full bg-gray-800 hover:bg-orange-400 hover:text-white transition"
+              >
+                <FaFacebook size={18} />
               </a>
-              <a href="#" className="hover:text-orange-400">
-                {/* <Instagram size={20} /> */}
+              <a
+                href="#"
+                className="p-2 rounded-full bg-gray-800 hover:bg-orange-400 hover:text-white transition"
+              >
+                <FaInstagram size={18} />
               </a>
-              <a href="#" className="hover:text-orange-400">
-                {/* <Twitter size={20} />
-                 */}
+              <a
+                href="#"
+                className="p-2 rounded-full bg-gray-800 hover:bg-orange-400 hover:text-white transition"
+              >
+                <FaTwitter size={18} />
               </a>
             </div>
           </div>
