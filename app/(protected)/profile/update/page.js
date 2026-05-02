@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Input, Card } from '@heroui/react';
-import { useSession } from '@/lib/auth-client';
+import { useSession, updateUser } from '@/lib/auth-client';
 import toast from 'react-hot-toast';
 import { ArrowLeft } from 'lucide-react';
 
@@ -37,7 +37,7 @@ export default function UpdateProfilePage() {
     setIsLoading(true);
 
     try {
-      const result = await update({
+      const result = await updateUser({
         name: name.trim(),
         image: image.trim() || undefined,
       });
@@ -86,7 +86,7 @@ export default function UpdateProfilePage() {
               placeholder="Enter your full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              isRequired
+              required
             />
 
             <Input

@@ -68,11 +68,9 @@ export default function Navbar() {
             {user ? (
               <Dropdown placement="bottom-end">
                 <DropdownTrigger>
-                  <Avatar
+                  <img
                     src={user.image}
-                    size="sm"
-                    className="cursor-pointer ring-2 ring-orange-200"
-                    fallback="👤"
+                    className="mb-6 ring-4 ring-orange-100 rounded-full"
                   />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="User Menu">
