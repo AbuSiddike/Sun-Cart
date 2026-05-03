@@ -4,22 +4,23 @@ import Link from 'next/link';
 import { useState } from 'react';
 import {
   Button,
-  Avatar,
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
 } from '@heroui/react';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useSession, signOut } from '@/lib/auth-client';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session, isPending: isLoading } = useSession();
+  const { data: session } = useSession();
   const user = session?.user;
+  const [showLogout, setShowLogout] = useState(false);
 
   const handleLogout = async () => {
     await signOut({ callbackURL: '/' });
+    setIsMenuOpen(false);
   };
 
   const navLinks = [
@@ -41,7 +42,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
@@ -56,21 +57,14 @@ export default function Navbar() {
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
-            {user && (
-              <Link href="/profile" className="hidden md:block">
-                <Button variant="light" startContent={<User size={18} />}>
-                  Profile
-                </Button>
-              </Link>
-            )}
-
             {/* Auth Section */}
             {user ? (
               <Dropdown placement="bottom-end">
                 <DropdownTrigger>
                   <img
                     src={user.image}
-                    className="mb-6 ring-4 ring-orange-100 rounded-full"
+                    alt="user"
+                    className="w-15 h-10 rounded-full object-cover ring-2 ring-orange-200 cursor-pointer"
                   />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="User Menu">
@@ -87,7 +81,7 @@ export default function Navbar() {
                 </DropdownMenu>
               </Dropdown>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="hidden md:flex items-center gap-3">
                 <Link href="/login">
                   <Button variant="bordered" size="sm">
                     Login
@@ -118,9 +112,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Overlay Menu */}
       {isMenuOpen && (
-        <div className="md:hidden border-t bg-white px-4 py-5">
+        <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-40 px-4 py-5">
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
@@ -132,14 +126,38 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            {user && (
-              <Link
-                href="/profile"
-                className="text-lg font-medium text-gray-700 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                My Profile
-              </Link>
+
+            {user ? (
+              <>
+                <Link
+                  href="/profile"
+                  className="text-lg font-medium text-gray-700 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Profile
+                </Link>
+
+                <button
+                  onClick={handleLogout}
+                  className="text-lg font-medium text-red-500 text-left py-2"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                  <Button fullWidth variant="bordered">
+                    Login
+                  </Button>
+                </Link>
+
+                <Link href="/register" onClick={() => setIsMenuOpen(false)}>
+                  <Button fullWidth className="summer-gradient text-white">
+                    Register
+                  </Button>
+                </Link>
+              </>
             )}
           </div>
         </div>

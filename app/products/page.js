@@ -38,7 +38,7 @@ export default function ProductsPage() {
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            startContent={<Search size={20} className="text-gray-400" />}
+            // startContent={<Search size={20} className="text-gray-400" />}
           />
         </div>
       </div>
@@ -86,7 +86,7 @@ export default function ProductsPage() {
                     {product.name}
                   </h3>
                   <p className="text-xl font-bold text-orange-600">
-                    ₹{product.price}
+                    ${product.price}
                   </p>
                 </div>
 

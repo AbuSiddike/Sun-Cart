@@ -116,7 +116,7 @@ export default function ProductDetailsPage() {
             </div>
 
             <div className="text-5xl font-bold text-orange-600 mb-8">
-              ₹{product.price}
+              ${product.price}
             </div>
 
             <Button

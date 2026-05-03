@@ -123,7 +123,7 @@ export default function HomePage() {
                     {product.name}
                   </h3>
                   <p className="text-2xl font-bold text-orange-600">
-                    ₹{product.price}
+                    ${product.price}
                   </p>
                 </div>
 
