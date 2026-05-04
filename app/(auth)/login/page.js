@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Input, Card } from '@heroui/react';
 import toast from 'react-hot-toast';
 import { signIn } from '@/lib/auth-client';
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle } from 'react-icons/fa';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -61,7 +61,7 @@ export default function LoginPage() {
           <p className="text-gray-500 text-center">Sign in to access SunCart</p>
         </Card.Header>
 
-        <Card.Content className="space-y-6">
+        <Card.Content className="px-8 py-6">
           {/* Google Login Button */}
           <Button
             onPress={handleGoogleLogin}
@@ -70,7 +70,8 @@ export default function LoginPage() {
             // startContent={<FaGoogle size={20} />}
             size="lg"
           >
-            <FaGoogle size={20} />Continue with Google
+            <FaGoogle size={20} />
+            Continue with Google
           </Button>
 
           {/* Divider */}
@@ -83,24 +84,30 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <form onSubmit={handleEmailLogin} className="space-y-5">
-            <Input
-              type="email"
-              label="Email Address"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <form onSubmit={handleEmailLogin} className="space-y-6">
+            <div className="flex flex-col gap-5">
+              <Input
+                type="email"
+                label="Email Address"
+                placeholder="you@example.com"
+                variant="bordered"
+                size="lg"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
 
-            <Input
-              type="password"
-              label="Password"
-              placeholder="your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+              <Input
+                type="password"
+                label="Password"
+                placeholder="Enter your password"
+                variant="bordered"
+                size="lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
             <Button
               type="submit"

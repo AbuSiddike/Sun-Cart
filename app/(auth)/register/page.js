@@ -58,7 +58,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-amber-50 p-6">
-      <Card className="w-full max-w-md shadow-xl">
+      <Card className="w-full max-w-lg mx-auto shadow-xl border border-gray-200">
         <Card.Header className="flex flex-col items-center gap-3 pb-6">
           <div className="text-5xl">☀️</div>
           <h1 className="text-3xl font-bold text-center">Create Account</h1>
@@ -67,7 +67,7 @@ export default function RegisterPage() {
           </p>
         </Card.Header>
 
-        <Card.Content className="space-y-6">
+        <Card.Content className="px-8 py-6">
           {/* Google Button */}
           <Button
             onPress={handleGoogleRegister}
@@ -90,41 +90,51 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <form onSubmit={handleRegister} className="space-y-5">
-            <Input
-              type="text"
-              label="Full Name"
-              placeholder="Enter your full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+          <form onSubmit={handleRegister} className="space-y-6">
+            <div className="grid grid-cols-1 gap-5">
+              <Input
+                type="text"
+                label="Full Name"
+                placeholder="Enter your full name"
+                variant="bordered"
+                size="lg"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
 
-            <Input
-              type="email"
-              label="Email Address"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+              <Input
+                type="email"
+                label="Email Address"
+                placeholder="you@example.com"
+                variant="bordered"
+                size="lg"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
 
-            <Input
-              type="url"
-              label="Photo URL"
-              placeholder="https://example.com/yourphoto.jpg"
-              value={photoUrl}
-              onChange={(e) => setPhotoUrl(e.target.value)}
-            />
+              <Input
+                type="url"
+                label="Photo URL"
+                placeholder="https://example.com/photo.jpg"
+                variant="bordered"
+                size="lg"
+                value={photoUrl}
+                onChange={(e) => setPhotoUrl(e.target.value)}
+              />
 
-            <Input
-              type="password"
-              label="Password"
-              placeholder="Create a strong password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+              <Input
+                type="password"
+                label="Password"
+                placeholder="Create a strong password"
+                variant="bordered"
+                size="lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
             <Button
               type="submit"
