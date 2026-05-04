@@ -32,7 +32,7 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center h-[60px]">
+        <div className="flex items-center h-[60px] relative">
           {/* Logo */}
           <Link
             href="/"
@@ -45,7 +45,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
+          <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
 
@@ -70,7 +70,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3 ml-auto">
             {/* Desktop Auth */}
             {user ? (
-              <div className="hidden md:flex items-center gap-1 border border-gray-200 rounded-full px-2 py-1 hover:border-gray-300 transition-colors">
+              <div className="hidden lg:flex items-center gap-1 border border-gray-200 rounded-full px-2 py-1 hover:border-gray-300 transition-colors">
                 {/* Avatar */}
                 <img
                   src={user.image}
@@ -132,7 +132,7 @@ export default function Navbar() {
 
             {/* Mobile Toggle */}
             <button
-              className="md:hidden p-1 text-gray-700"
+              className="lg:hidden p-1 text-gray-700"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -143,7 +143,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-50 lg:hidden">
           {/* Background overlay */}
           <div
             className="absolute inset-0 bg-black/30 backdrop-blur-sm"

@@ -3,9 +3,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button, Card, Avatar } from '@heroui/react';
+import { Button, Card } from '@heroui/react';
 import { useSession } from '@/lib/auth-client';
-import { User, Edit, ArrowLeft } from 'lucide-react';
+import { User, Mail, Calendar, Shield, Edit, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function ProfilePage() {
@@ -22,7 +22,9 @@ export default function ProfilePage() {
   if (isPending) {
     return (
       <div className="min-h-[70vh] flex items-center justify-center">
-        <p className="text-xl">Loading profile...</p>
+        <p className="text-xl text-gray-500 animate-pulse">
+          Loading profile...
+        </p>
       </div>
     );
   }
@@ -32,63 +34,99 @@ export default function ProfilePage() {
   const user = session.user;
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-12">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 text-orange-600 hover:underline mb-8"
-      >
-        <ArrowLeft size={20} />
-        Back to Home
-      </Link>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-4">
+      <div className="max-w-4xl mx-auto">
 
-      <Card className="shadow-2xl">
-        <div className="p-6 md:p-10">
-          <div className="flex flex-col items-center text-center mb-10">
-            <img
-              src={user.image}
-              alt={user.name}
-              className="mb-6 ring-4 ring-orange-100 rounded-full"
-            />
+        {/* Back */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-orange-600 hover:underline mb-8"
+        >
+          <ArrowLeft size={18} />
+          Back to Home
+        </Link>
 
-            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">
-              {user.name}
-            </h1>
-            <p className="text-gray-500 text-lg md:text-xl">{user.email}</p>
-          </div>
+        {/* Card */}
+        <Card className="backdrop-blur-xl bg-white/70 border border-gray-200 shadow-2xl rounded-3xl">
+          <div className="p-8 md:p-12">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            <div className="bg-gray-50 p-6 rounded-2xl">
-              <p className="text-sm text-gray-500 mb-1">Member Since</p>
-              <p className="font-medium">April 2026</p>
+            {/* Profile Header */}
+            <div className="flex flex-col items-center text-center mb-12">
+              <div className="relative group">
+                <img
+                  src={user.image}
+                  alt={user.name}
+                  className="w-32 h-32 rounded-full object-cover ring-4 ring-orange-200 shadow-lg transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+
+              <h1 className="text-3xl md:text-4xl font-bold mt-6">
+                {user.name}
+              </h1>
+
+              <p className="text-gray-500 text-lg mt-1">
+                {user.email}
+              </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-2xl">
-              <p className="text-sm text-gray-500 mb-1">Account Type</p>
-              <p className="font-medium">Regular User</p>
-            </div>
-          </div>
 
-          {/* Responsive Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/profile/update" className="w-full sm:w-auto">
+            {/* Info Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+              <div className="flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:shadow-md transition">
+                <User className="text-orange-500" />
+                <div>
+                  <p className="text-sm text-gray-500">Full Name</p>
+                  <p className="font-semibold">{user.name}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:shadow-md transition">
+                <Mail className="text-orange-500" />
+                <div>
+                  <p className="text-sm text-gray-500">Email Address</p>
+                  <p className="font-semibold">{user.email}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:shadow-md transition">
+                <Calendar className="text-orange-500" />
+                <div>
+                  <p className="text-sm text-gray-500">Member Since</p>
+                  <p className="font-semibold">April 2026</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:shadow-md transition">
+                <Shield className="text-orange-500" />
+                <div>
+                  <p className="text-sm text-gray-500">Account Type</p>
+                  <p className="font-semibold">Regular User</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/profile/update" className="w-full sm:w-auto">
+                <Button
+                  className="w-full sm:w-auto px-8 py-6 text-lg font-medium flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white shadow-lg"
+                  startContent={<Edit size={18} />}
+                >
+                  Update Profile
+                </Button>
+              </Link>
+
               <Button
-                color="primary"
-                className="summer-gradient w-full sm:w-auto px-8 py-7 text-lg font-medium flex items-center justify-center gap-3"
-                startContent={<Edit size={20} />}
+                variant="bordered"
+                onPress={() => router.push('/')}
+                className="w-full sm:w-auto px-8 py-6 text-lg border-gray-300 hover:bg-gray-100"
               >
-                Update Profile
+                Back to Shopping
               </Button>
-            </Link>
-
-            <Button
-              variant="bordered"
-              onPress={() => router.push('/')}
-              className="w-full sm:w-auto px-8 py-7 text-lg"
-            >
-              Back to Shopping
-            </Button>
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }

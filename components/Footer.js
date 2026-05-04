@@ -4,13 +4,11 @@ import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
-
       {/* Top accent line */}
       <div className="h-1 w-full bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600" />
 
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {/* Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-5">
@@ -95,7 +93,7 @@ export default function Footer() {
             <p className="text-gray-400 text-sm mb-4 leading-relaxed">
               Get summer deals and tips delivered straight to your inbox.
             </p>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="email"
                 placeholder="Your email"
@@ -106,18 +104,32 @@ export default function Footer() {
               </button>
             </div>
           </div>
-
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-800 mt-14 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-gray-500 text-xs">
+        <div className="border-t border-gray-800 mt-14 pt-6 flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-3 text-gray-500 text-xs">
           <p>© 2026 SunCart. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy</Link>
+            <Link
+              href="/privacy"
+              className="hover:text-gray-300 transition-colors"
+            >
+              Privacy
+            </Link>
             <span className="w-px h-3 bg-gray-700" />
-            <Link href="/shipping" className="hover:text-gray-300 transition-colors">Shipping</Link>
+            <Link
+              href="/shipping"
+              className="hover:text-gray-300 transition-colors"
+            >
+              Shipping
+            </Link>
             <span className="w-px h-3 bg-gray-700" />
-            <Link href="/contact" className="hover:text-gray-300 transition-colors">Contact</Link>
+            <Link
+              href="/contact"
+              className="hover:text-gray-300 transition-colors"
+            >
+              Contact
+            </Link>
           </div>
         </div>
       </div>
