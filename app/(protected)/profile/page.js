@@ -42,22 +42,18 @@ export default function ProfilePage() {
       </Link>
 
       <Card className="shadow-2xl">
-        <div className="p-10">
+        <div className="p-6 md:p-10">
           <div className="flex flex-col items-center text-center mb-10">
             <img
               src={user.image}
               alt={user.name}
               className="mb-6 ring-4 ring-orange-100 rounded-full"
             />
-            {/* <Avatar
-              src={`${user.image}`}
-              size="xl"
-              className="mb-6 ring-4 ring-orange-100"
-              fallback={<User size={60} />}
-            /> */}
 
-            <h1 className="text-4xl font-bold mb-2">{user.name}</h1>
-            <p className="text-gray-500 text-xl">{user.email}</p>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">
+              {user.name}
+            </h1>
+            <p className="text-gray-500 text-lg md:text-xl">{user.email}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
@@ -71,11 +67,12 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="flex gap-4 justify-center">
-            <Link href="/profile/update">
+          {/* Responsive Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/profile/update" className="w-full sm:w-auto">
               <Button
                 color="primary"
-                className="summer-gradient px-10 py-7 text-lg font-medium flex items-center gap-3"
+                className="summer-gradient w-full sm:w-auto px-8 py-7 text-lg font-medium flex items-center justify-center gap-3"
                 startContent={<Edit size={20} />}
               >
                 Update Profile
@@ -85,7 +82,7 @@ export default function ProfilePage() {
             <Button
               variant="bordered"
               onPress={() => router.push('/')}
-              className="px-10 py-7 text-lg"
+              className="w-full sm:w-auto px-8 py-7 text-lg"
             >
               Back to Shopping
             </Button>

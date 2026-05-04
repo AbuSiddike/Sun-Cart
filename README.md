@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SunCart — Summer Essentials Store
+SunCart is a modern summer eCommerce platform where users can explore and purchase seasonal products like sunglasses, summer outfits, skincare, beach accessories, and more.
 
-## Getting Started
+## Live Demo
+**[Live Link](https://sun-cart-henna.vercel.app/)**
 
-First, run the development server:
+## Project Overview
+A beautiful and fully responsive summer-themed eCommerce website built with Next.js. Users can browse products, view details, and place orders after authentication.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Core Features
+- Fully responsive design (Mobile, Tablet, Desktop)
+- Modern Navbar with user avatar, dropdown, and floating mobile menu
+- Stunning Hero Section with Lottie animation
+- Popular Products showcase
+- Product Listing with Search & Category Filter
+- Protected Product Details Page
+- Authentication (Email/Password + Google) using Better Auth
+- My Profile & Update Profile (Bonus)
+- Summer Care Tips Section
+- Top Brands Showcase
+- Custom 404 Error Page
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Technical Features
+- Server-side and client-side authentication with Better Auth
+- Protected routes implementation
+- Smooth animations and hover effects
+- Toast notifications for better UX
+- Clean code structure following Next.js App Router best practices
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies Used
+- **Next.js 16** (App Router)
+- **Tailwind CSS**
+- **HeroUI v3** (Component Library)
+- **Better Auth** (Authentication)
+- **Lottie React** (Animation)
+- **React Hot Toast** (Notifications)
+- **Lucide React** (Icons)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Key Highlights
+- Unique summer-themed design with vibrant gradients
+- Fully functional authentication system
+- Protected Product Details route
+- Bonus features: My Profile + Update Profile
+- Lottie animation in Hero section
+- Responsive mobile menu with overlay
+- Clean and maintainable code

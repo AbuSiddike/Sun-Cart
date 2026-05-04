@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   Button,
   Dropdown,
@@ -9,14 +10,14 @@ import {
   DropdownMenu,
   DropdownItem,
 } from '@heroui/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut, User } from 'lucide-react';
 import { useSession, signOut } from '@/lib/auth-client';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = useSession();
   const user = session?.user;
-  const [showLogout, setShowLogout] = useState(false);
+  const pathname = usePathname();
 
   const handleLogout = async () => {
     await signOut({ callbackURL: '/' });
@@ -29,59 +30,90 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white border-b sticky top-0 z-50 shadow-sm">
+    <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center h-[60px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl">
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-bold text-xl text-orange-600 shrink-0"
+          >
+            <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-lg">
               ☀️
             </div>
-            <span className="font-bold text-2xl tracking-tight text-orange-600">
-              SunCart
-            </span>
+            SunCart
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-gray-700 hover:text-orange-600 font-medium transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative px-3 py-1.5 text-sm rounded-md transition-colors
+                  ${
+                    isActive
+                      ? 'text-orange-600 font-semibold after:absolute after:bottom-[-14px] after:left-3 after:right-3 after:h-[2px] after:bg-orange-600 after:rounded-t'
+                      : 'text-gray-500 hover:text-gray-900'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center gap-4">
-            {/* Auth Section */}
+          <div className="flex items-center gap-3 ml-auto">
+            {/* Desktop Auth */}
             {user ? (
-              <Dropdown placement="bottom-end">
-                <DropdownTrigger>
-                  <img
-                    src={user.image}
-                    alt="user"
-                    className="w-15 h-10 rounded-full object-cover ring-2 ring-orange-200 cursor-pointer"
-                  />
-                </DropdownTrigger>
-                <DropdownMenu aria-label="User Menu">
-                  <DropdownItem key="profile" href="/profile">
-                    My Profile
-                  </DropdownItem>
-                  <DropdownItem
-                    key="logout"
-                    color="danger"
-                    onPress={handleLogout}
-                  >
-                    Logout
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+              <div className="hidden md:flex items-center gap-1 border border-gray-200 rounded-full px-2 py-1 hover:border-gray-300 transition-colors">
+                {/* Avatar */}
+                <img
+                  src={user.image}
+                  alt={user.name ?? 'user'}
+                  className="w-7 h-7 rounded-full object-cover ring-2 ring-orange-100"
+                />
+
+                {/* Name */}
+                <span className="text-sm font-medium text-gray-700 px-2 max-w-[120px] truncate">
+                  {user.name}
+                </span>
+
+                {/* Divider */}
+                <span className="w-px h-4 bg-gray-200" />
+
+                {/* My Profile */}
+                <Link
+                  href="/profile"
+                  className={`flex items-center gap-1 px-2 py-1 text-sm rounded-full transition-colors
+                    ${
+                      pathname === '/profile'
+                        ? 'text-orange-600 font-semibold'
+                        : 'text-gray-500 hover:text-gray-900'
+                    }`}
+                >
+                  <User size={14} />
+                  Profile
+                </Link>
+
+                {/* Divider */}
+                <span className="w-px h-4 bg-gray-200" />
+
+                {/* Logout */}
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-1 px-2 py-1 text-sm text-gray-500 hover:text-red-500 rounded-full transition-colors"
+                >
+                  <LogOut size={14} />
+                  Logout
+                </button>
+              </div>
             ) : (
-              <div className="hidden md:flex items-center gap-3">
+              <div className="hidden md:flex items-center gap-2">
                 <Link href="/login">
                   <Button variant="bordered" size="sm">
                     Login
@@ -89,9 +121,8 @@ export default function Navbar() {
                 </Link>
                 <Link href="/register">
                   <Button
-                    color="primary"
                     size="sm"
-                    className="summer-gradient text-white"
+                    className="bg-orange-600 hover:bg-orange-700 text-white"
                   >
                     Register
                   </Button>
@@ -99,48 +130,69 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* Mobile Menu Button */}
-            <Button
-              isIconOnly
-              variant="light"
-              className="md:hidden"
-              onPress={() => setIsMenuOpen(!isMenuOpen)}
+            {/* Mobile Toggle */}
+            <button
+              className="md:hidden p-1 text-gray-700"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </Button>
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Overlay Menu */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-40 px-4 py-5">
-          <div className="flex flex-col gap-4">
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Background overlay */}
+          <div
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+            onClick={() => setIsMenuOpen(false)}
+          />
+
+          {/* Side Drawer */}
+          <div className="absolute top-16 left-0 h-[calc(100%-60px)] w-1/2 bg-white/80 backdrop-blur-md shadow-xl p-4 flex flex-col gap-4">
+            {/* Nav Links */}
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-lg font-medium text-gray-700 py-2"
+                className="text-base font-medium text-gray-700 py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
 
+            {/* Auth */}
             {user ? (
               <>
+                {/* User info */}
+                <div className="flex items-center gap-2 py-2 border-t border-gray-100">
+                  <img
+                    src={user.image}
+                    alt={user.name ?? 'user'}
+                    className="w-8 h-8 rounded-full object-cover ring-2 ring-orange-200"
+                  />
+                  <span className="text-sm font-medium text-gray-800 truncate">
+                    {user.name}
+                  </span>
+                </div>
+
                 <Link
                   href="/profile"
-                  className="text-lg font-medium text-gray-700 py-2"
                   onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center gap-2 text-base font-medium text-gray-700 py-2"
                 >
+                  <User size={16} />
                   My Profile
                 </Link>
 
                 <button
                   onClick={handleLogout}
-                  className="text-lg font-medium text-red-500 text-left py-2"
+                  className="flex items-center gap-2 text-base font-medium text-red-500 text-left py-2"
                 >
+                  <LogOut size={16} />
                   Logout
                 </button>
               </>
@@ -153,7 +205,7 @@ export default function Navbar() {
                 </Link>
 
                 <Link href="/register" onClick={() => setIsMenuOpen(false)}>
-                  <Button fullWidth className="summer-gradient text-white">
+                  <Button className="w-full bg-orange-600 text-white">
                     Register
                   </Button>
                 </Link>
