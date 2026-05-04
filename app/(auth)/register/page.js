@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button, Input, Card } from '@heroui/react';
 import toast from 'react-hot-toast';
-import { signIn } from '@/lib/auth-client';
+import { signIn, signUp } from '@/lib/auth-client';
 import { FaGoogle } from 'react-icons/fa';
 
 export default function RegisterPage() {
@@ -27,16 +27,17 @@ export default function RegisterPage() {
         email,
         password,
         image: photoUrl || undefined,
-        callbackURL: '/login',
       });
 
-      if (result.error) {
+      if (result?.error) {
         toast.error(result.error.message || 'Registration failed');
-      } else {
-        toast.success('Account created successfully! Please login.');
-        router.push('/login');
+        return;
       }
+
+      toast.success('Account created successfully! Please login.');
+      router.push('/login');
     } catch (error) {
+      console.error(error);
       toast.error('Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
